@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -e
+
+echo "===> Bundling..."
+script/bootstrap --quiet
+
+for testvar in TOKEN TEAM
+do
+  slackvar="SLACK_TEST_${testvar}"
+  if [[ -z "${!slackvar}" ]]; then
+      echo "Please export ${slackvar}";
+      exit 1;
+  fi
+done
+
+echo "===> Running specs..."
+bundle exec rake spec
