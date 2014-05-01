@@ -4,13 +4,13 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'slack/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "slack"
+  spec.name          = "slack.rb"
   spec.version       = Slack::VERSION
   spec.authors       = ["Bastian Bartmann", "Mathias Bartmann"]
   spec.email         = ["bastian.bartmann@netflower.de", "mathias.bartmann@netflower.de"]
   spec.summary       = %q{Simple wrapper for the Slack API}
   spec.description   = %q{Ruby toolkit for working with the Slack API}
-  spec.homepage      = "https://github.com/netflower/slack"
+  spec.homepage      = "https://github.com/netflower/slack.rb"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
