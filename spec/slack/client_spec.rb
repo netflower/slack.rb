@@ -38,7 +38,7 @@ describe Slack::Client do
     it "returns channel not found error" do
       expect{
         @client.post_message("May the force be with you", "channel-name")
-      }.to raise_error(Slack::Error)
+      }.to raise_error(Slack::ChannelNotFound)
 
       params = {text: "May the force be with you", channel: "#channel-name", token: test_slack_token}
       assert_requested :post, slack_url_with_params("/chat.postMessage", params)

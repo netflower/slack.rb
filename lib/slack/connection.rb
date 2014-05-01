@@ -28,18 +28,14 @@ module Slack
     def connection
       Faraday.new(base_url) do |c|
         c.use(Faraday::Request::UrlEncoded)
+        c.use(Slack::Response::RaiseError)
         c.adapter(Faraday.default_adapter)
       end
     end
 
     def handle_response(response)
       body = JSON.parse(response.body)
-
-      if ["true", 1].include? body['ok']
-        true
-      else
-        raise Slack::Error.new(response.body)
-      end
+      true if ["true", 1].include? body['ok']
     end
   end
 end
