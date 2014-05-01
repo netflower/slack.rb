@@ -14,7 +14,7 @@ module Slack
       validate_arguments
     end
 
-    def post_message(text, channel)
+    def post_message(text, channel, options = {})
       payload = Slack::Payload.new(
         text:       text,
         channel:    channel,
