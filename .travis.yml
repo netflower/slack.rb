@@ -1,0 +1,9 @@
+language: ruby
+rvm:
+- 2.0.0
+- 1.9.3
+- 1.8.7
+script: ./script/cibuild
+notifications:
+  slack:
+    secure: MoVXtQqiV/9IEWZcaVB4sF/oEoPWqXWu6fOaxt0hFYktEXMqiTQEeL+a9lbqH06F/Xfb9oH+asC5IPRugcxg9nSY48IV+cvVikPCAQEfe6FffNpAYTlnWArINAOf5Ad6dvInvT9qsDYjA5Bmb+nzndCfrE5qluvS0Nxz3Gk7mQA=
