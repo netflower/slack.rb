@@ -3,7 +3,7 @@
 Ruby toolkit for working with the Slack API
 
 [![Build Status](https://travis-ci.org/netflower/slack.rb.svg?branch=master)](https://travis-ci.org/netflower/slack.rb)
-
+[![Code Climate](https://codeclimate.com/github/netflower/slack.rb.png)](https://codeclimate.com/github/netflower/slack.rb)
 ## Installation
 
 Add this line to your application's Gemfile:
