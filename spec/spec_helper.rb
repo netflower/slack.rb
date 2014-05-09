@@ -39,16 +39,40 @@ def slack_url(path)
   "https://slack.com/api#{path}"
 end
 
-def slack_url_with_params(path, params=nil)
+def slack_url_with_params(path, params={})
   "https://slack.com/api#{path}?#{parameterize(params)}"
 end
 
-def auth_slack_url(path)
-  "https://slack.com/api#{path}?token=#{test_slack_token}"
+def auth_slack_url(path, params={})
+  slack_url_with_params(path, {token: test_slack_token}.merge(params))
 end
 
-def auth_client
-  Slack::Client.new(ENV.fetch('SLACK_TEST_TEAM'), ENV.fetch('SLACK_TEST_TOKEN'))
+def stub_delete(url)
+  stub_request(:delete, auth_slack_url(url))
+end
+
+def stub_get(url)
+  stub_request(:get, auth_slack_url(url))
+end
+
+def stub_head(url)
+  stub_request(:head, auth_slack_url(url))
+end
+
+def stub_patch(url)
+  stub_request(:patch, auth_slack_url(url))
+end
+
+def stub_post(url, params)
+  stub_request(:post, auth_slack_url(url, params))
+end
+
+def stub_put(url)
+  stub_request(:put, auth_slack_url(url))
+end
+
+def auth_client(options={})
+  Slack::Client.new({team: ENV.fetch('SLACK_TEST_TEAM'), token: ENV.fetch('SLACK_TEST_TOKEN')}.merge(options))
 end
 
 def parameterize(params)

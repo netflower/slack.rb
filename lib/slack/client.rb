@@ -1,17 +1,24 @@
 require "json"
 require "faraday"
+require 'slack/configurable'
+require "slack/error"
+require "slack/connection"
+require "slack/payload"
 
 module Slack
   class Client
+    include Slack::Configurable
     include Slack::Connection
 
-    def initialize(team, token, options = {})
-      @team       = team
-      @token      = token
-      @username   = options[:username]
-      @channel    = options[:channel]
+    def initialize(options = {})
+      # Use options passed in, but fall back to module defaults
+      Slack::Configurable.keys.each do |key|
+        instance_variable_set(:"@#{key}", options[key] || Slack.instance_variable_get(:"@#{key}"))
+      end
+    end
 
-      validate_arguments
+    def same_options?(opts)
+      opts.hash == options.hash
     end
 
     def post_message(text, channel, options = {})
@@ -22,7 +29,8 @@ module Slack
         token:      @token
       )
 
-      post('chat.postMessage', payload)
+      response = post('chat.postMessage', payload)
+      valid_response?(response)
     end
 
     def channels
@@ -31,19 +39,14 @@ module Slack
 
     private
 
-    def validate_arguments
-      raise ArgumentError, "Team name required" if @team.nil?
-      raise ArgumentError, "Token required"     if @token.nil?
-      raise ArgumentError, "Invalid team name"  unless valid_team_name?
-    end
-
-    def valid_team_name?
-      @team =~ /^[a-z\d\-]+$/ ? true : false
-    end
-
     def _channels
       response = get('channels.list')
-      response['channels']
+      JSON.parse(response.body)['channels']
+    end
+
+    def valid_response?(response)
+      body = JSON.parse(response.body)
+      ["true", 1].include? body['ok']
     end
   end
 end

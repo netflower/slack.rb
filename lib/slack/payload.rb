@@ -3,8 +3,8 @@ module Slack
     attr_accessor :username, :channel, :text, :token
 
     def initialize(options = {})
-      @username   = options[:username]
-      @channel    = options[:channel]
+      @username   = options[:username] || Slack.default_username
+      @channel    = options[:channel] || Slack.default_channel
       @text       = options[:text]
       @token      = options[:token]
 

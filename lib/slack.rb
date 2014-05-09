@@ -1,47 +1,32 @@
-require "slack/version"
+require 'slack/client'
+require 'slack/default'
 
 module Slack
-  require 'slack/response/raise_error'
-  require "slack/error"
-  require "slack/connection"
-  require "slack/payload"
-  require "slack/client"
 
-  # Default API endpoint
-  API_ENDPOINT = "https://slack.com/api/".freeze
+  class << self
+    include Slack::Configurable
 
-  # Default User Agent header string
-  USER_AGENT   = "Slack Ruby Gem #{Slack::VERSION}".freeze
+    # API client based on configured options {Configurable}
+    #
+    # @return [Slack::Client] API wrapper
+    def client
+      @client = Slack::Client.new(options) unless defined?(@client) && @client.same_options?(options)
+      @client
+    end
 
-  # Default media type
-  MEDIA_TYPE   = "application/json"
+    # see: http://robots.thoughtbot.com/always-define-respond-to-missing-when-overriding
+    # @private
+    def respond_to_missing?(method_name, include_private=false)
+      client.respond_to?(method_name, include_private)
+    end
 
-  # Default API endpoint from ENV or {API_ENDPOINT}
-  # @return [String]
-  def api_endpoint
-    ENV['SLACK_API_ENDPOINT'] || API_ENDPOINT
-  end
+  private
 
-  # Default media type from ENV or {MEDIA_TYPE}
-  # @return [String]
-  def default_media_type
-    ENV['SLACK_DEFAULT_MEDIA_TYPE'] || MEDIA_TYPE
-  end
-
-  # Default User-Agent header string from ENV or {USER_AGENT}
-  # @return [String]
-  def user_agent
-    ENV['SLACK_USER_AGENT'] || USER_AGENT
-  end
-
-  # Default options for Faraday::Connection
-  # @return [Hash]
-  def connection_options
-    {
-      :headers => {
-        :accept => default_media_type,
-        :user_agent => user_agent
-      }
-    }
+    def method_missing(method_name, *args, &block)
+      return super unless client.respond_to?(method_name)
+      client.send(method_name, *args, &block)
+    end
   end
 end
+
+Slack.setup
