@@ -63,11 +63,11 @@ describe Slack::Payload do
     let(:hash) { described_class.new(options).to_hash }
 
     it "includes basic attributes" do
-      expect(hash).to eq Hash(
+      expect(hash).to eq({
         channel: "#bar",
         text: "hola",
         username: "foo"
-      )
+      })
     end
 
     context "when channel is not set" do
