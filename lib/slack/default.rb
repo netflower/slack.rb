@@ -71,10 +71,10 @@ module Slack
         ENV['SLACK_DEFAULT_CHANNEL'] || DEFAULT_CHANNEL
       end
 
-      # Default Username from ENV or {DEFAULT_USERNAME}
+      # Username from ENV or {DEFAULT_USERNAME}
       # @return [String]
-      def default_username
-        ENV['SLACK_DEFAULT_USERNAME'] || DEFAULT_USERNAME
+      def username
+        ENV['SLACK_USERNAME'] || DEFAULT_USERNAME
       end
 
       # Default options for Faraday::Connection

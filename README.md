@@ -40,7 +40,7 @@ Every writable attribute in {Slack::Configurable} can be set one at a time:
 ```ruby
 Slack.api_endpoint     = 'https://slack.dev/api'
 Slack.default_channel  = '#lol-cats'
-Slack.default_username = 'Yoda'
+Slack.username         = 'Yoda'
 ```
 
 or in batch:
@@ -49,7 +49,7 @@ or in batch:
 Slack.configure do |c|
   c.api_endpoint     = 'https://slack.dev/api'
   c.default_channel  = '#lol-cats'
-  c.default_username = 'Yoda'
+  c.username         = 'Yoda'
 end
 ```
 

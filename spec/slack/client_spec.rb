@@ -40,7 +40,8 @@ describe Slack::Client do
           :connection_options => {:ssl => {:verify => false}},
           :api_endpoint => "https://slack.dev/api",
           :token        => "abcdef",
-          :team         => "netflower"
+          :team         => "netflower",
+          :username     => "yoda"
         }
       end
 
@@ -49,6 +50,7 @@ describe Slack::Client do
         expect(client.api_endpoint).to eq("https://slack.dev/api")
         expect(client.token).to eq("abcdef")
         expect(client.instance_variable_get(:"@team")).to eq("netflower")
+        expect(client.username).to eq("yoda")
         expect(client.default_media_type).to eq(Slack.default_media_type)
         expect(client.user_agent).to eq(Slack.user_agent)
       end
@@ -63,6 +65,7 @@ describe Slack::Client do
         expect(client.api_endpoint).to eq("https://slack.dev/api")
         expect(client.token).to eq("abcdef")
         expect(client.instance_variable_get(:"@team")).to eq("netflower")
+        expect(client.username).to eq("yoda")
         expect(client.default_media_type).to eq(Slack.default_media_type)
         expect(client.user_agent).to eq(Slack.user_agent)
       end
@@ -117,7 +120,7 @@ describe Slack::Client do
        client = auth_client({:user_agent => user_agent})
        client.post_message("May the force be with you", "yoda-quotes")
 
-       params = {text: "May the force be with you", channel: "#yoda-quotes", token: test_slack_token, username: Slack.default_username}
+       params = {text: "May the force be with you", channel: "#yoda-quotes", token: test_slack_token, username: Slack.username}
        assert_requested :post, slack_url_with_params("/chat.postMessage", params), :headers => {:user_agent => user_agent}
     end
   end
@@ -126,7 +129,7 @@ describe Slack::Client do
     it "posts a message to one channel" do
       result = @client.post_message("May the force be with you", "yoda-quotes")
       expect(result).to be true
-      params = {text: "May the force be with you", channel: "#yoda-quotes", token: test_slack_token, username: Slack.default_username}
+      params = {text: "May the force be with you", channel: "#yoda-quotes", token: test_slack_token, username: Slack.username}
       assert_requested :post, slack_url_with_params("/chat.postMessage", params)
     end
 
@@ -135,7 +138,7 @@ describe Slack::Client do
         @client.post_message("May the force be with you", "channel-name")
       }.to raise_error(Slack::ChannelNotFound)
 
-      params = {text: "May the force be with you", channel: "#channel-name", token: test_slack_token, username: Slack.default_username}
+      params = {text: "May the force be with you", channel: "#channel-name", token: test_slack_token, username: Slack.username}
       assert_requested :post, slack_url_with_params("/chat.postMessage", params)
     end
   end
