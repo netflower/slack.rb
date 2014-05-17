@@ -23,10 +23,11 @@ module Slack
 
     def post_message(text, channel, options = {})
       payload = Slack::Payload.new(
-        text:       text,
-        channel:    channel,
-        username:   @username,
-        token:      @token
+        text:        text,
+        channel:     channel,
+        username:    @username,
+        token:       @token,
+        attachments: options[:attachments]
       )
 
       response = post('chat.postMessage', payload)
