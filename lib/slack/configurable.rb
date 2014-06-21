@@ -2,7 +2,7 @@ module Slack
 
   module Configurable
 
-    attr_accessor :token, :team, :username, :api_endpoint, :default_media_type,
+    attr_accessor :token, :team, :username, :icon_url, :api_endpoint, :default_media_type,
                   :user_agent, :default_channel, :connection_options, :middleware
     attr_writer :api_endpoint
 
@@ -15,6 +15,7 @@ module Slack
           :token,
           :team,
           :username,
+          :icon_url,
           :api_endpoint,
           :user_agent,
           :connection_options,

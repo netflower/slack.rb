@@ -1,12 +1,13 @@
 module Slack
   class Payload
-    attr_accessor :username, :channel, :text, :token, :attachments
+    attr_accessor :username, :channel, :text, :token, :icon_url, :attachments
 
     def initialize(options = {})
       @username    = options[:username] || Slack.username
       @channel     = options[:channel]  || Slack.default_channel
       @text        = options[:text]
       @token       = options[:token]
+      @icon_url    = options[:icon_url]
       @attachments = options[:attachments]
 
       unless channel[0] =~ /^(#|@)/
@@ -20,6 +21,7 @@ module Slack
         username:    username,
         channel:     channel,
         token:       token,
+        icon_url:    icon_url,
         attachments: attachments.to_json
       }
 

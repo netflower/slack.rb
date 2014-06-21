@@ -41,7 +41,8 @@ describe Slack::Client do
           :api_endpoint => "https://slack.dev/api",
           :token        => "abcdef",
           :team         => "netflower",
-          :username     => "yoda"
+          :username     => "yoda",
+          :icon_url     => "http://lorempixel.com/48/48"
         }
       end
 
@@ -51,6 +52,7 @@ describe Slack::Client do
         expect(client.token).to eq("abcdef")
         expect(client.instance_variable_get(:"@team")).to eq("netflower")
         expect(client.username).to eq("yoda")
+        expect(client.icon_url).to eq("http://lorempixel.com/48/48")
         expect(client.default_media_type).to eq(Slack.default_media_type)
         expect(client.user_agent).to eq(Slack.user_agent)
       end
@@ -66,6 +68,7 @@ describe Slack::Client do
         expect(client.token).to eq("abcdef")
         expect(client.instance_variable_get(:"@team")).to eq("netflower")
         expect(client.username).to eq("yoda")
+        expect(client.icon_url).to eq("http://lorempixel.com/48/48")
         expect(client.default_media_type).to eq(Slack.default_media_type)
         expect(client.user_agent).to eq(Slack.user_agent)
       end

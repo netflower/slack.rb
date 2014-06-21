@@ -28,6 +28,7 @@ module Slack
         channel:     channel,
         username:    @username,
         token:       @token,
+        icon_url:    @icon_url,
         attachments: options[:attachments]
       )
 
