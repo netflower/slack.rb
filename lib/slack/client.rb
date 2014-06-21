@@ -4,6 +4,7 @@ require 'slack/configurable'
 require "slack/error"
 require "slack/connection"
 require "slack/payload"
+require "slack/structs"
 
 module Slack
   class Client
