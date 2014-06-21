@@ -20,10 +20,10 @@ module Slack
         username:    username,
         channel:     channel,
         token:       token,
-        attachments: attachments
+        attachments: attachments.to_json
       }
 
-      hash.delete_if { |_,v| v.nil? }
+      hash.delete_if { |_,v| v.nil? || v == "null"}
     end
   end
 end

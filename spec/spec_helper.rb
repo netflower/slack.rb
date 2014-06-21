@@ -75,6 +75,15 @@ def auth_client(options={})
   Slack::Client.new({team: ENV.fetch('SLACK_TEST_TEAM'), token: ENV.fetch('SLACK_TEST_TOKEN')}.merge(options))
 end
 
+def attachments
+  field1 = AttachmentField.new("field1", "value1", false)
+  field2 = AttachmentField.new("field2", "value2", true)
+  field3 = AttachmentField.new("field3", "value3", true)
+  fields = [field1, field1, field1]
+
+  [Attachment.new("fallback", "text-world", "pre-hello", "good", ["text", "title", "fallback"], fields)]
+end
+
 def parameterize(params)
   URI.escape(params.collect{|k,v| "#{k}=#{v}"}.join('&'))
 end

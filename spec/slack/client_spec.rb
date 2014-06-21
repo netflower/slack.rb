@@ -133,6 +133,13 @@ describe Slack::Client do
       assert_requested :post, slack_url_with_params("/chat.postMessage", params)
     end
 
+    it "posts a message with an attachment" do
+      result = @client.post_message(nil, "slack-test", {attachments: attachments})
+      expect(result).to be true
+      params = {attachments: attachments.to_json, channel: "#slack-test", token: test_slack_token, username: Slack.username}
+      assert_requested :post, slack_url_with_params("/chat.postMessage", params)
+    end
+
     it "returns channel not found error" do
       expect{
         @client.post_message("May the force be with you", "channel-name")
