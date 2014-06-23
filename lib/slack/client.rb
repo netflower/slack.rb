@@ -4,6 +4,7 @@ require 'slack/configurable'
 require "slack/error"
 require "slack/connection"
 require "slack/payload"
+require "slack/structs"
 
 module Slack
   class Client
@@ -23,10 +24,12 @@ module Slack
 
     def post_message(text, channel, options = {})
       payload = Slack::Payload.new(
-        text:       text,
-        channel:    channel,
-        username:   @username,
-        token:      @token
+        text:        text,
+        channel:     channel,
+        username:    @username,
+        token:       @token,
+        icon_url:    @icon_url,
+        attachments: options[:attachments]
       )
 
       response = post('chat.postMessage', payload)

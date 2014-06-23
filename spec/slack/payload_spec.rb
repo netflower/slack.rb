@@ -79,5 +79,15 @@ describe Slack::Payload do
         expect(hash.keys).not_to include "channel"
       end
     end
+
+    context "when attachment is not set" do
+      before do
+        options[:attachments] = nil
+      end
+
+      it "excludes attachments" do
+        expect(hash.keys).not_to include "attachments"
+      end
+    end
   end
 end

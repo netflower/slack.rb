@@ -77,6 +77,12 @@ module Slack
         ENV['SLACK_USERNAME'] || DEFAULT_USERNAME
       end
 
+      # Icon URL from ENV
+      # @return [String]
+      def icon_url
+        ENV['SLACK_ICON_URL']
+      end
+
       # Default options for Faraday::Connection
       # @return [Hash]
       def connection_options

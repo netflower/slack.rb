@@ -41,7 +41,8 @@ describe Slack::Client do
           :api_endpoint => "https://slack.dev/api",
           :token        => "abcdef",
           :team         => "netflower",
-          :username     => "yoda"
+          :username     => "yoda",
+          :icon_url     => "http://lorempixel.com/48/48"
         }
       end
 
@@ -51,6 +52,7 @@ describe Slack::Client do
         expect(client.token).to eq("abcdef")
         expect(client.instance_variable_get(:"@team")).to eq("netflower")
         expect(client.username).to eq("yoda")
+        expect(client.icon_url).to eq("http://lorempixel.com/48/48")
         expect(client.default_media_type).to eq(Slack.default_media_type)
         expect(client.user_agent).to eq(Slack.user_agent)
       end
@@ -66,6 +68,7 @@ describe Slack::Client do
         expect(client.token).to eq("abcdef")
         expect(client.instance_variable_get(:"@team")).to eq("netflower")
         expect(client.username).to eq("yoda")
+        expect(client.icon_url).to eq("http://lorempixel.com/48/48")
         expect(client.default_media_type).to eq(Slack.default_media_type)
         expect(client.user_agent).to eq(Slack.user_agent)
       end
@@ -130,6 +133,13 @@ describe Slack::Client do
       result = @client.post_message("May the force be with you", "yoda-quotes")
       expect(result).to be true
       params = {text: "May the force be with you", channel: "#yoda-quotes", token: test_slack_token, username: Slack.username}
+      assert_requested :post, slack_url_with_params("/chat.postMessage", params)
+    end
+
+    it "posts a message with an attachment" do
+      result = @client.post_message(nil, "slack-test", {attachments: attachments})
+      expect(result).to be true
+      params = {attachments: attachments.to_json, channel: "#slack-test", token: test_slack_token, username: Slack.username}
       assert_requested :post, slack_url_with_params("/chat.postMessage", params)
     end
 
