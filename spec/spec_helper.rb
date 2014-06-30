@@ -76,12 +76,12 @@ def auth_client(options={})
 end
 
 def attachments
-  field1 = AttachmentField.new("field1", "value1", false)
-  field2 = AttachmentField.new("field2", "value2", true)
-  field3 = AttachmentField.new("field3", "value3", true)
+  field1 = Slack::AttachmentField.new("field1", "value1", false)
+  field2 = Slack::AttachmentField.new("field2", "value2", true)
+  field3 = Slack::AttachmentField.new("field3", "value3", true)
   fields = [field1, field1, field1]
 
-  [Attachment.new("fallback", "text-world", "pre-hello", "good", ["text", "title", "fallback"], fields)]
+  [Slack::Attachment.new("fallback", "text-world", "pre-hello", "good", ["text", "title", "fallback"], fields)]
 end
 
 def parameterize(params)
