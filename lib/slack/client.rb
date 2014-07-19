@@ -49,7 +49,7 @@ module Slack
 
     def valid_response?(response)
       body = JSON.parse(response.body)
-      ["true", 1].include? body['ok']
+      [true, 1].include? body['ok']
     end
   end
 end

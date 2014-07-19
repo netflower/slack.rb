@@ -12,5 +12,7 @@ class Struct
   end
 end
 
-Attachment = Struct.new(:fallback, :text, :pretext, :color, :mrkdwn_in, :fields)
-AttachmentField = Struct.new(:title, :value, :short)
+module Slack
+  Attachment = Struct.new(:fallback, :text, :pretext, :color, :mrkdwn_in, :fields)
+  AttachmentField = Struct.new(:title, :value, :short)
+end
