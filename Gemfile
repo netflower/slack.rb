@@ -4,6 +4,7 @@ gem 'rake'
 
 group :development do
   gem 'awesome_print', :require => 'ap'
+  gem 'guard-rspec'
   gem 'hirb-unicode'
   gem 'pry'
 end
